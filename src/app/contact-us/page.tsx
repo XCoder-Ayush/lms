@@ -78,7 +78,7 @@ function page() {
                       name="name"
                       id="name"
                       placeholder="Sarah Parker"
-                      require
+                      required
                     />
                   </div>
                 </div>

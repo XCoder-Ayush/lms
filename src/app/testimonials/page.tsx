@@ -46,7 +46,7 @@ export default function page() {
               data-aos-duration={1000}
               className="text-center text-gray-500 aos-init aos-animate"
             >
-              Transparency should be at it's peak is our core principle
+              Transparency should be at it`&apos;`s peak is our core principle
             </p>
           </div>
         </div>
