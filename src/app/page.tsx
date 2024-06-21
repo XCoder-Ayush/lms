@@ -11,6 +11,7 @@ import {
   NavigationMenuTrigger,
   NavigationMenuViewport,
 } from "@/components/ui/navigation-menu";
+import Footer from "@/components/Footer/Footer";
 
 function Home() {
   return (
@@ -27,6 +28,7 @@ function Home() {
           </Link>
         </div>
       </section>
+      <Footer />
     </>
   );
 }

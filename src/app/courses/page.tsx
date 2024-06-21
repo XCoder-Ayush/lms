@@ -43,7 +43,7 @@ function page() {
         </div>
       </div>
 
-      <div className="grid grid-cols-3 gap-10 w-full px-8 py-4 mt-16">
+      <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 w-full px-8 py-4 mt-16">
         <Course title="Operating Systems To The Moon" />
         <Course title="Data Structures And Algorithms In C++" />
         <Course title="Deep Dive Into Apache Kafka And Zookeeper" />

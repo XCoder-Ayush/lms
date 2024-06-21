@@ -5,6 +5,7 @@ import Link from "next/link";
 
 import { cn } from "@/lib/utils";
 import { Icons } from "../icons";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import {
   NavigationMenu,
@@ -16,6 +17,7 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import Image from "next/image";
+import axios from "axios";
 
 const components: { title: string; href: string; description: string }[] = [
   {
@@ -50,25 +52,86 @@ const components: { title: string; href: string; description: string }[] = [
       "Prepare for your upcoming coding interviews in the best manner.",
   },
 ];
-
+type User = {
+  id: string;
+  googleId: string;
+  fullName: string;
+  email: string;
+  password: string; // Note: Storing passwords in plain text is not recommended in production
+  phone: string | null;
+  avatar: string;
+  createdAt: string;
+  updatedAt: string;
+};
 export function Navbar() {
-  return (
-    <div className="flex justify-between items-center w-full px-6">
-      <div className="logo w-1/3 flex items-center">
-        <Image
-          src={"/Union.png"}
-          id="brand-logo"
-          width={"40"}
-          height={"40"}
-          alt="Brand Logo"
-        ></Image>
-        {/* <h1 style={{ marginLeft: 5 }}>Bloginary</h1> */}
-      </div>
+  const [userData, setUserData] = React.useState<User | null>(null);
 
-      <div className="w-2/3">
-        <NavigationMenu>
-          <NavigationMenuList>
-            {/* <NavigationMenuItem>
+  React.useEffect(() => {
+    const getUserData = async () => {
+      try {
+        axios.defaults.withCredentials = true;
+        let response = await axios(
+          `http://localhost:8080/api/v1/login/success`,
+          {
+            method: "GET",
+            withCredentials: true,
+          }
+        );
+        console.log(response);
+
+        setUserData(response.data);
+        console.log(response.data);
+
+        localStorage.setItem("userId", response.data.id);
+        localStorage.setItem("userDetails", JSON.stringify(response.data));
+
+        // console.log(JSON.parse(localStorage.getItem('userDetails')));
+      } catch (error) {
+        console.log("Error Fetching User Data:", error);
+      }
+    };
+
+    getUserData();
+  }, []);
+
+  const logout = async () => {
+    try {
+      await axios.get(`http://localhost:8080/api/v1/user/logout`, {
+        withCredentials: true,
+      });
+
+      setUserData(null);
+
+      // window.location.href = "/login";
+      window.location.reload();
+    } catch (error) {
+      console.error("Error Logging Out : ", error);
+    }
+  };
+
+  const LoginWithGoogle = () => {
+    // window.open(`${process.env.REACT_APP_SERVER_URL}/auth/google`, "_self");
+    window.open(`http://localhost:8080/auth/google`, "_self");
+  };
+
+  return (
+    <div className="w-[100vw] ">
+      <div className="flex justify-between items-center w-full px-6">
+        <div className="logo w-1/4 flex items-center">
+          <Image
+            src={"/Union.png"}
+            id="brand-logo"
+            width={"40"}
+            height={"40"}
+            alt="Brand Logo"
+          ></Image>
+          {/* <h1 style={{ marginLeft: 5 }}>Bloginary</h1> */}
+        </div>
+
+        <div className="flex items-center justify-center w-1/2">
+          <NavigationMenu>
+            <NavigationMenuList>
+              {/* <NavigationMenuItem>
           <NavigationMenuTrigger>Getting started</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
@@ -101,67 +164,95 @@ export function Navbar() {
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem> */}
-            <NavigationMenuItem>
-              <Link href="/" legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  Home
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuTrigger>Examinations</NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-                  {components.map((component) => (
-                    <ListItem
-                      key={component.title}
-                      title={component.title}
-                      href={component.href}
-                    >
-                      {component.description}
-                    </ListItem>
-                  ))}
-                </ul>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
+              <NavigationMenuItem>
+                <Link href="/" legacyBehavior passHref>
+                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                    Home
+                  </NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
+              {/* <NavigationMenuItem>
+                <NavigationMenuTrigger>Examinations</NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+                    {components.map((component) => (
+                      <ListItem
+                        key={component.title}
+                        title={component.title}
+                        href={component.href}
+                      >
+                        {component.description}
+                      </ListItem>
+                    ))}
+                  </ul>
+                </NavigationMenuContent>
+              </NavigationMenuItem> */}
 
-            <NavigationMenuItem>
-              <Link href="/courses" legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  Courses
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <Link href="/faqs" legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  FAQs
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <Link href="/courses" legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  Testimonials
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <Link href="/courses" legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  About
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <Link href="/courses" legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  Contact Us
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
-          </NavigationMenuList>
-        </NavigationMenu>
+              <NavigationMenuItem>
+                <Link href="/courses" legacyBehavior passHref>
+                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                    Courses
+                  </NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <Link href="/faqs" legacyBehavior passHref>
+                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                    FAQs
+                  </NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <Link href="/testimonials" legacyBehavior passHref>
+                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                    Testimonials
+                  </NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <Link href="/about" legacyBehavior passHref>
+                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                    About
+                  </NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <Link href="/contact-us" legacyBehavior passHref>
+                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                    Contact Us
+                  </NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
+              {/* <NavigationMenuItem>
+                <Link href="/contact-us" legacyBehavior passHref>
+                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                    <button type="button" className="login-with-google-btn">
+                      Sign in with Google
+                    </button>
+                  </NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem> */}
+            </NavigationMenuList>
+          </NavigationMenu>
+        </div>
+        {!userData ? (
+          <div className="w-1/4 flex items-center justify-end">
+            <button
+              type="button"
+              className="login-with-google-btn"
+              onClick={LoginWithGoogle}
+            >
+              Sign in with Google
+            </button>
+          </div>
+        ) : (
+          <div className="w-1/4 flex items-center justify-end">
+            <Avatar>
+              <AvatarImage src={userData.avatar} alt="@shadcn" />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+          </div>
+        )}
       </div>
     </div>
   );
