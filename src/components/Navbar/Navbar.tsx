@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import Image from "next/image";
 import axios from "axios";
+import { LoaderCircle } from "lucide-react";
 
 const components: { title: string; href: string; description: string }[] = [
   {
@@ -65,6 +66,7 @@ type User = {
 };
 export function Navbar() {
   const [userData, setUserData] = React.useState<User | null>(null);
+  const [pageLoading, setPageLoading] = React.useState<Boolean>(true);
 
   React.useEffect(() => {
     const getUserData = async () => {
@@ -84,10 +86,12 @@ export function Navbar() {
 
         localStorage.setItem("userId", response.data.id);
         localStorage.setItem("userDetails", JSON.stringify(response.data));
-
+        setPageLoading(false);
         // console.log(JSON.parse(localStorage.getItem('userDetails')));
       } catch (error) {
         console.log("Error Fetching User Data:", error);
+        setPageLoading(false);
+
       }
     };
 
@@ -113,7 +117,12 @@ export function Navbar() {
     // window.open(`${process.env.REACT_APP_SERVER_URL}/auth/google`, "_self");
     window.open(`http://localhost:8080/auth/google`, "_self");
   };
-
+  if (pageLoading)
+    return (
+      <div className="container h-screen flex justify-center items-center">
+        <LoaderCircle className=" animate-spin h-20 w-20 text-primary" />
+      </div>
+    );
   return (
     <div className="w-[100vw] ">
       <div className="flex justify-between items-center w-full px-6">

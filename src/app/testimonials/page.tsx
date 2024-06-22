@@ -46,32 +46,65 @@ export default function page() {
               data-aos-duration={1000}
               className="text-center text-gray-500 aos-init aos-animate"
             >
-              Transparency should be at it`&apos;`s peak is our core principle
+              Transparency should be at it&apos;s peak is our core principle
             </p>
           </div>
         </div>
 
         <div className="w-full  flex justify-center items-center py-16 flex-grow">
-          <Carousel className="w-[1000px]">
+          <Carousel className="w-[800px]">
             <CarouselContent>
-              {Array.from({ length: 5 }).map((_, index) => (
+              {/* {Array.from({ length: 5 }).map((_, index) => (
                 <CarouselItem key={index}>
-                  {/* <div className="p-1">
-                  <Card>
-                    <CardContent className="flex aspect-square items-center justify-center p-6">
-                      <span className="text-4xl font-semibold">
-                        {index + 1}
-                      </span>
-                    </CardContent>
-                  </Card>
-                </div> */}
                   <img
-                    src="https://www.vagdevitechnologies.com/wp-content/uploads/2022/12/data-structures-and-algorithms.jpg"
+                    src="/T1.png"
                     alt=""
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain"
                   />
                 </CarouselItem>
-              ))}
+              ))} */}
+              <CarouselItem key={1}>
+                <img
+                  src="/T1.png"
+                  alt=""
+                  className="w-full h-full object-contain"
+                />
+              </CarouselItem>
+              <CarouselItem key={2}>
+                <img
+                  src="/T2.png"
+                  alt=""
+                  className="w-full h-full object-contain"
+                />
+              </CarouselItem>
+              <CarouselItem key={3}>
+                <img
+                  src="/T3.png"
+                  alt=""
+                  className="w-full h-full object-contain"
+                />
+              </CarouselItem>
+              <CarouselItem key={4}>
+                <img
+                  src="/T4.png"
+                  alt=""
+                  className="w-full h-full object-contain"
+                />
+              </CarouselItem>
+              <CarouselItem key={5}>
+                <img
+                  src="/T5.png"
+                  alt=""
+                  className="w-full h-full object-contain"
+                />
+              </CarouselItem>
+              <CarouselItem key={6}>
+                <img
+                  src="/T6.png"
+                  alt=""
+                  className="w-full h-full object-contain"
+                />
+              </CarouselItem>
             </CarouselContent>
             <CarouselPrevious />
             <CarouselNext />

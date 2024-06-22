@@ -1,8 +1,62 @@
-import React from "react";
+"use client";
+import * as React from "react";
+
 import { Course } from "@/components/Course/Course";
 import { Navbar } from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
+import { LoaderCircle } from "lucide-react";
+
+type Course = {
+  id: string;
+  author: string;
+  thumbnail: string;
+  title: string;
+  description: string;
+  duration: Number;
+  rating: Number;
+  enrolled: Number;
+  price: Number;
+};
+
 function page() {
+  const [courses, setCourses] = React.useState<Course[]>([]);
+  const [pageLoading, setPageLoading] = React.useState<Boolean>(true);
+
+  React.useEffect(() => {
+    fetchCourses();
+  }, []);
+  const fetchCourses = async () => {
+    try {
+      const response = await fetch("http://localhost:8080/api/v1/courses", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const data = await response.json();
+      console.log(data);
+      setCourses(data);
+
+      return;
+    } catch (error) {
+      console.error("There was a problem with your fetch operation:", error);
+    }
+  };
+
+  React.useEffect(() => {
+    setPageLoading(false);
+  }, [courses]);
+  if (pageLoading)
+    return (
+      <div className="container h-screen flex justify-center items-center">
+        <LoaderCircle className=" animate-spin h-20 w-20 text-primary" />
+      </div>
+    );
   return (
     <>
       <div className="w-full flex justify-center items-center border-2 p-4">
@@ -44,13 +98,10 @@ function page() {
       </div>
 
       <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 w-full px-8 py-4 mt-16">
-        <Course title="Operating Systems To The Moon" />
-        <Course title="Data Structures And Algorithms In C++" />
-        <Course title="Deep Dive Into Apache Kafka And Zookeeper" />
-        <Course title="Introduction to Machine Learning with Python" />
-        <Course title="Web Development with React and Node.js" />
-        <Course title="Ethical Hacking and Cybersecurity Fundamentals" />
+        {courses.length &&
+          courses.map((course) => <Course key={course.id} course={course} />)}
       </div>
+
       <Footer />
     </>
   );

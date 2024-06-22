@@ -1,8 +1,62 @@
+"use client";
 import Footer from "@/components/Footer/Footer";
 import { Navbar } from "@/components/Navbar/Navbar";
 import React from "react";
+import { toast } from "sonner";
 
 function page() {
+  const [formData, setFormData] = React.useState({
+    name: "",
+    number: "",
+    email: "",
+    message: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch("http://localhost:8080/api/v1/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const data = await response.json();
+      alert("Query Posted Successfully");
+      toast("Query Posted Successfully", {
+        description: `${Date.now()}`,
+        action: {
+          label: "Close",
+          onClick: () => {},
+        },
+      });
+    } catch (error) {
+      console.error("There was a problem posting your query : ", error);
+      alert("Query Posting Failed. Please Try Again In Some Time.");
+
+      toast("Failed to send message. Please try again later.", {
+        description: `${Date.now()}`,
+        action: {
+          label: "Close",
+          onClick: () => {},
+        },
+      });
+    }
+  };
   return (
     <div className="flex flex-col">
       <div className="w-full flex justify-center items-center border-2 p-4">
@@ -60,7 +114,10 @@ function page() {
             />
           </div>
           <div className="w-full lg:w-1/2 overflow-hidden">
-            <form className="contact-form flex flex-col gap-5">
+            <form
+              className="contact-form flex flex-col gap-5"
+              onSubmit={handleSubmit}
+            >
               <div className="row grid grid-cols-1 lg:grid-cols-2 gap-5 overflow-hidden">
                 <div className="overflow-hidden">
                   <div
@@ -79,6 +136,7 @@ function page() {
                       id="name"
                       placeholder="Sarah Parker"
                       required
+                      onChange={handleChange}
                     />
                   </div>
                 </div>
@@ -99,6 +157,7 @@ function page() {
                       id="number"
                       placeholder="+88 01XXXXXXXXX"
                       required
+                      onChange={handleChange}
                     />
                   </div>
                 </div>
@@ -120,6 +179,7 @@ function page() {
                     id="email"
                     placeholder="sara@example.com"
                     required
+                    onChange={handleChange}
                   />
                 </div>
               </div>
@@ -143,6 +203,7 @@ function page() {
                     required
                     spellCheck="false"
                     defaultValue={""}
+                    onChange={handleChange}
                   />
                 </div>
               </div>
