@@ -73,7 +73,7 @@ export function Navbar() {
       try {
         axios.defaults.withCredentials = true;
         let response = await axios(
-          `http://localhost:8080/api/v1/login/success`,
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/login/success`,
           {
             method: "GET",
             withCredentials: true,
@@ -100,7 +100,7 @@ export function Navbar() {
 
   const logout = async () => {
     try {
-      await axios.get(`http://localhost:8080/api/v1/user/logout`, {
+      await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/user/logout`, {
         withCredentials: true,
       });
 
@@ -115,7 +115,7 @@ export function Navbar() {
 
   const LoginWithGoogle = () => {
     // window.open(`${process.env.REACT_APP_SERVER_URL}/auth/google`, "_self");
-    window.open(`http://localhost:8080/auth/google`, "_self");
+    window.open(`${process.env.NEXT_PUBLIC_SERVER_URL}/auth/google`, "_self");
   };
   if (pageLoading)
     return (

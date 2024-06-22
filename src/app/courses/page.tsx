@@ -27,7 +27,7 @@ function page() {
   }, []);
   const fetchCourses = async () => {
     try {
-      const response = await fetch("http://localhost:8080/api/v1/courses", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/courses`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

@@ -23,7 +23,7 @@ function page() {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:8080/api/v1/contact", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/contact`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
