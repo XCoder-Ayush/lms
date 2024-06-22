@@ -53,7 +53,7 @@ export default function Checkout() {
   const isSignedIn = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/v1/login/success`,
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/login/success`,
         {
           withCredentials: true,
         }
@@ -70,7 +70,7 @@ export default function Checkout() {
   const fetchCourse = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/v1/course/${courseId}`
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/course/${courseId}`
       );
       createOrderId(response.data.price);
     } catch (error) {
@@ -81,15 +81,18 @@ export default function Checkout() {
   const createOrderId = async (amount: Number) => {
     // Get Amount From Backend Of The Following Course Id:
     try {
-      const response = await fetch("http://localhost:8080/api/v1/order", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          amount: Number(amount * 100),
-        }),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/order`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            amount: Number(amount * 100),
+          }),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Network response was not ok");
@@ -132,7 +135,7 @@ export default function Checkout() {
           };
           // console.log("HERE 1");
 
-          // const result = await fetch("http://localhost:8080/api/v1/verify", {
+          // const result = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/verify`, {
           //   method: "POST",
           //   body: JSON.stringify(data),
           //   headers: { "Content-Type": "application/json" },
