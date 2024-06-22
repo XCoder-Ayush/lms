@@ -91,7 +91,6 @@ export function Navbar() {
       } catch (error) {
         console.log("Error Fetching User Data:", error);
         setPageLoading(false);
-
       }
     };
 
@@ -100,9 +99,12 @@ export function Navbar() {
 
   const logout = async () => {
     try {
-      await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/user/logout`, {
-        withCredentials: true,
-      });
+      await axios.get(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/user/logout`,
+        {
+          withCredentials: true,
+        }
+      );
 
       setUserData(null);
 
@@ -124,9 +126,9 @@ export function Navbar() {
       </div>
     );
   return (
-    <div className="w-[100vw] ">
+    <div className="sm:w-[1024px] md:w-[100vw] ">
       <div className="flex justify-between items-center w-full px-6">
-        <div className="logo w-1/4 flex items-center">
+        <div className="logo sm:1/8 md:w-1/4 flex items-center ">
           <Image
             src={"/Union.png"}
             id="brand-logo"
@@ -134,10 +136,11 @@ export function Navbar() {
             height={"40"}
             alt="Brand Logo"
           ></Image>
+          {/* <img src="/Union.png" alt="" className="w-full h-full " /> */}
           {/* <h1 style={{ marginLeft: 5 }}>Bloginary</h1> */}
         </div>
 
-        <div className="flex items-center justify-center w-1/2">
+        <div className="flex items-center justify-center sm:w-1/2 md:w-1/2">
           <NavigationMenu>
             <NavigationMenuList>
               {/* <NavigationMenuItem>
@@ -244,8 +247,9 @@ export function Navbar() {
             </NavigationMenuList>
           </NavigationMenu>
         </div>
+
         {!userData ? (
-          <div className="w-1/4 flex items-center justify-end">
+          <div className="sm:3/8 md:w-1/4 flex items-center justify-end">
             <button
               type="button"
               className="login-with-google-btn"

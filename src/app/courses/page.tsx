@@ -27,12 +27,15 @@ function Page() {
   }, []);
   const fetchCourses = async () => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/courses`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/courses`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Network response was not ok");
@@ -97,7 +100,7 @@ function Page() {
         </div>
       </div>
 
-      <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 w-full px-8 py-4 mt-16">
+      <div className="grid grid-cols-2 lg:grid-cols-3 gap-10 w-full px-8 py-4 mt-16">
         {courses.length &&
           courses.map((course) => <Course key={course.id} course={course} />)}
       </div>
