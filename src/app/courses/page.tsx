@@ -18,7 +18,7 @@ type Course = {
   price: Number;
 };
 
-function page() {
+function Page() {
   const [courses, setCourses] = React.useState<Course[]>([]);
   const [pageLoading, setPageLoading] = React.useState<Boolean>(true);
 
@@ -107,4 +107,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;

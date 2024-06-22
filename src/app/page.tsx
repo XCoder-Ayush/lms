@@ -1,3 +1,6 @@
+"use client";
+
+import * as React from "react";
 import { Navbar } from "@/components/Navbar/Navbar";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";

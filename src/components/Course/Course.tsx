@@ -1,3 +1,7 @@
+"use client";
+
+import * as React from "react";
+
 import { BellIcon, CheckIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
