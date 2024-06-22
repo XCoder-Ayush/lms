@@ -1,10 +1,11 @@
 "use client";
+
+import * as React from "react";
 import Footer from "@/components/Footer/Footer";
 import { Navbar } from "@/components/Navbar/Navbar";
-import React from "react";
 import { toast } from "sonner";
 
-function page() {
+function Page() {
   const [formData, setFormData] = React.useState({
     name: "",
     number: "",
@@ -12,14 +13,14 @@ function page() {
     message: "",
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e:any) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e:any) => {
     e.preventDefault();
 
     try {
@@ -240,4 +241,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;

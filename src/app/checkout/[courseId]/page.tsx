@@ -30,7 +30,7 @@ export default function Checkout() {
   // let amount: Number = Number(params.get("amount"));
   const [pageLoading, setPageLoading] = React.useState(true);
   const [loading, setLoading] = React.useState(false);
-  const [amount, setAmount] = React.useState<Number | null>(null);
+  const [amount, setAmount] = React.useState<number | null>(null);
   const [orderSuccess, setOrderSuccess] = React.useState(false);
   const idRef = React.useRef();
 
@@ -78,7 +78,7 @@ export default function Checkout() {
       router.replace("/");
     }
   };
-  const createOrderId = async (amount: Number) => {
+  const createOrderId = async (amount: number) => {
     // Get Amount From Backend Of The Following Course Id:
     try {
       const response = await fetch(
@@ -118,9 +118,10 @@ export default function Checkout() {
     console.log(orderId);
 
     try {
+      if (!amount) return;
       const options = {
         key: "rzp_test_jjYAvVxoTUmjSI",
-        amount: parseFloat(amount) * 100,
+        amount: amount * 100,
         currency: "INR",
         name: "Bloginary",
         description: "Discover amazing courses about tech and engineering",
