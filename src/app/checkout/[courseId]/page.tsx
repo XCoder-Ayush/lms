@@ -64,7 +64,7 @@ export default function Checkout() {
       // setAmount(0);
       // callToast();
       console.error("Some Problem Occured While Fetching Course : ", error);
-      // router.replace("/");
+      router.replace("/");
     }
   };
   const fetchCourse = async () => {
