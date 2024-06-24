@@ -1,4 +1,7 @@
 "use client";
+import { RocketIcon } from "@radix-ui/react-icons";
+
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 import * as React from "react";
 import Footer from "@/components/Footer/Footer";
@@ -13,24 +16,27 @@ function Page() {
     message: "",
   });
 
-  const handleChange = (e:any) => {
+  const handleChange = (e: any) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
   };
 
-  const handleSubmit = async (e:any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/contact`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/contact`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Network response was not ok");
@@ -64,7 +70,7 @@ function Page() {
         <Navbar />
       </div>
 
-      <section className="contact wrapper py-10 md:py-20 2xl:h-[calc(100vh-2rem)] overflow-hidden">
+      <section className="contact wrapper py-10 md:py-20 h-auto overflow-hidden">
         <div className="flex flex-col items-center text-center gap-1">
           <div className="overflow-hidden">
             <p
@@ -97,12 +103,45 @@ function Page() {
             </p>
           </div>
         </div>
+        <div className="container mt-16">
+          <div className="contact-details mb-2">
+            <Alert>
+              <RocketIcon className="h-4 w-4" />
+              <AlertTitle>Contact Us!</AlertTitle>
+              <AlertDescription>
+                Feel free to contact us at{" "}
+                <em className=" mr-1">
+                  <strong>+91 9874656203</strong>
+                </em>{" "}
+                or email us at{" "}
+                <em className="mr-1">
+                  <strong>bloginary.live@gmail.com</strong>
+                </em>
+              </AlertDescription>
+            </Alert>
+          </div>
+          <div className="address mt-2 mb-4">
+            <Alert>
+              <RocketIcon className="h-4 w-4" />
+              <AlertTitle>Where are we located ?</AlertTitle>
+              <AlertDescription>
+                You can visit us at{" "}
+                <em className=" mr-1">
+                  <strong>
+                    T-47, Tegharia, Radha Govinda Bhavan, Rajarhat Main Road,
+                    Kolkata - 700157
+                  </strong>
+                </em>
+              </AlertDescription>
+            </Alert>
+          </div>
+        </div>
         <div className="flex flex-col lg:flex-row gap-10 mt-10  px-10">
           <div
             data-aos="zoom-out"
             data-aos-delay={800}
             data-aos-duration={1000}
-            className="w-full lg:w-1/2 flex justify-center p-5 aos-init aos-animate"
+            className="w-full lg:w-1/2 flex justify-center p-5 aos-init aos-animate flex-col"
           >
             <img
               alt="Some man are connected on call in call center"
@@ -234,6 +273,7 @@ function Page() {
           </div>
         </div>
       </section>
+
       <div className="justify-end">
         <Footer />
       </div>

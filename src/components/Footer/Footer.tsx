@@ -17,7 +17,7 @@ function Footer() {
             data-aos-delay={500}
             data-aos-once="true"
             data-aos-duration={1000}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 xl:grid-cols-5 gap-5 items-start w-full pb-10 aos-init aos-animate"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 xl:grid-cols-5 gap-10 items-start w-full pb-10 aos-init aos-animate"
           >
             <div className="company-intro col-span-1 lg:col-span-2">
               <div className="logo mb-4">
@@ -85,6 +85,7 @@ function Footer() {
                 </a>
               </div>
             </div>
+
             <div className="pages col-span-1 lg:col-span-1">
               <h4 className="text-xl font-bold mb-4 text-white">Quick Links</h4>
               <ul className="text-md font-semibold flex flex-col gap-2">
@@ -138,7 +139,7 @@ function Footer() {
                 </li>
               </ul>
             </div>
-            <div className="col-span-1 lg:col-span-1">
+            {/* <div className="col-span-1 lg:col-span-1">
               <h4 className="text-xl font-bold mb-4 text-white">
                 Popular Courses
               </h4>
@@ -192,22 +193,22 @@ function Footer() {
                   </a>
                 </li>
               </ul>
-            </div>
+            </div> */}
             <div className="col-span-1 lg:col-span-1">
               <h4 className="text-xl font-bold mb-4 text-white">Legal</h4>
               <ul className="text-md font-semibold flex flex-col gap-2">
                 <li>
                   <a
                     className="hover:text-white duration-300 hover:underline underline-offset-2"
-                    href="/"
+                    href="https://merchant.razorpay.com/policy/OQHqcqhulkHaJn/terms"
                   >
-                    Terms of Use
+                    Terms and Conditions
                   </a>
                 </li>
                 <li>
                   <a
                     className="hover:text-white duration-300 hover:underline underline-offset-2"
-                    href="/"
+                    href="/privacy"
                   >
                     Privacy Policy
                   </a>
@@ -215,9 +216,17 @@ function Footer() {
                 <li>
                   <a
                     className="hover:text-white duration-300 hover:underline underline-offset-2"
-                    href="/"
+                    href="https://merchant.razorpay.com/policy/OQHqcqhulkHaJn/refund"
                   >
-                    Cookie Policy
+                    Cancellation and Refund Policy
+                  </a>
+                </li>
+                <li>
+                  <a
+                    className="hover:text-white duration-300 hover:underline underline-offset-2"
+                    href="https://merchant.razorpay.com/policy/OQHqcqhulkHaJn/shipping"
+                  >
+                    Shipping and Delivery Policy
                   </a>
                 </li>
               </ul>
